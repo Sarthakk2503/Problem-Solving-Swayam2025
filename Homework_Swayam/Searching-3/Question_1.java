@@ -1,3 +1,7 @@
+/*You have given an array A having N elements and an integer S. You have to find a maximum number X 
+such that the sum of all its subarrays of size X is less than or equal to S.*/
+
+
 class solution {
     public static void main(String[] args) {
         int[] ar={1, 3, 4, 2};
