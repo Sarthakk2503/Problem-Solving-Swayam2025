@@ -1,0 +1,65 @@
+import java.util.*;
+class solution
+{
+    
+    public static void main(String args[])
+    {
+        TrieNode root=new TrieNode('*');
+        Scanner in=new Scanner(System.in);
+        System.out.println("enter size of word array");
+        int n=in.nextInt();
+        String[] words=new String[n];
+        System.out.println("enter the words");
+        for(int i=0;i<n;i++)
+        {
+            words[i]=in.next();
+        }
+        System.out.println("entere Query");
+        String Q=in.next();
+        insertIntoTrie(root,words);
+        List<String> ans=query(root,Q);
+        System.out.println(ans);
+    }
+    public static void insertIntoTrie(TrieNode root,String[] arr)
+    {
+        for(int i=0;i<arr.length;i++)
+        {
+            TrieNode node=root;
+            String s=arr[i];
+            for(int j=0;j<s.length();j++)
+            {
+                char c=s.charAt(j);
+                if(node.children[c-'a']==null)
+                {
+                    node.children[c-'a']=new TrieNode(c);
+                }
+                node=node.children[c-'a'];
+                node.commonPrefixName.add(s);
+            }
+        }
+    }
+    public static List<String> query(TrieNode root,String q)
+    {
+        TrieNode node=root;
+        for(int i=0;i<q.length();i++)
+        {
+            char c=q.charAt(i);
+            if(node.children[c-'a']==null)
+            return new ArrayList<String>();
+            
+            node=node.children[c-'a'];
+        }
+        return node.commonPrefixName;
+    }
+}
+class TrieNode{
+    char data;
+    List<String> commonPrefixName;
+    TrieNode[] children;
+    TrieNode(char ch)
+    {
+        this.data=ch;
+        this.commonPrefixName=new ArrayList<>();
+        this.children=new TrieNode[26];
+    }
+}
