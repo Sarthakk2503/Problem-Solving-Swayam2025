@@ -1,0 +1,23 @@
+class Solution {
+    public Node cloneGraph(Node node) {
+        if(node==null)
+        return null;
+
+        Node copy= new Node(node.val);
+        HashMap<Node,Node> map=new HashMap();
+        return dfs(node,map);
+    }
+    public Node dfs(Node node,HashMap<Node,Node> map)
+    {
+        if(map.containsKey(node))
+        return map.get(node);
+
+        Node copy=new Node(node.val,new ArrayList<Node>());
+        map.put(node,copy);
+        for(Node neigh :node.neighbors)
+        {
+            copy.neighbors.add(dfs(neigh,map));
+        }
+        return copy;
+    }
+}
